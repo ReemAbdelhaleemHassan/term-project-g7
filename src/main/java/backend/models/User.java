@@ -1,4 +1,5 @@
-package src.main.java.backend.models;
+package main.java.backend.models;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,6 @@ public class User {
     public int signUp (UserBasicInfo newUser)throws SQLException{
         //signup
     }
-
 
 
 }
