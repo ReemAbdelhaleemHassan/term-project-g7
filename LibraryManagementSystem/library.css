@@ -1,0 +1,44 @@
+.root{
+    -fx-background-image: url("1.gif");
+}
+.label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-style: normal;
+    -fx-font-size: 25px;
+    -fx-animated: true;
+}
+
+.button{
+    -fx-background-color:
+            linear-gradient(#7b68ee,slateblue),
+            radial-gradient(center 50% -40%,radius 200%, mediumslateblue 45%,slateblue 50%);
+
+    -fx-text-fill:white;
+    -fx-effect: dropshadow(three-pass-box,rgba(0,0,0,0.4), 5, 0.0, 0, 1);
+    -fx-font-style: normal;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+
+}
+.text-field {
+    -fx-border-color: mediumslateblue;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-style: italic;
+    -fx-font-weight: 400;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: linear-gradient(mediumslateblue,slateblue);
+
+}
+.button:hover{
+    -fx-background-color:mediumslateblue,
+    radial-gradient(center 50% -40%,radius 200%, mediumslateblue 45%,slateblue 50%);
+    -fx-text-fill:white;
+    -fx-font-scale: 2;
+}
+.button:pressed{
+
+    -fx-background-insets: 2 0 0 0,2 0 3 0,2 0 4 0,2 0 5 0;
+}
