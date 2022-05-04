@@ -1,4 +1,4 @@
-package src.main.java.backend.models;
+package main.java.backend.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
