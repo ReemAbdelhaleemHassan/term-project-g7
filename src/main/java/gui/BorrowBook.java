@@ -18,7 +18,7 @@ public class BorrowBook {
     Timestamp returnDate;
 
     public void borrow(Stage window,Scene previous){
-        Label introLable =new Label("register a borrow");
+        Label introLable =new Label("Register a borrow");
         Label userIdLable =new Label("user Id");
         Label bookIdLable =new Label("book Id");
 
@@ -28,11 +28,23 @@ public class BorrowBook {
         Button registerBorrowButton =new Button("register");
         Button returnButton =new Button("return");
 
+        HBox hBox1 =new HBox();
+        hBox1.setSpacing(30);
+        hBox1.setPadding(new Insets(10,10,10,10));
+        hBox1.setAlignment(Pos.CENTER);
+        hBox1.getChildren().addAll(userIdLable,userIdTextField);
+
+        HBox hBox2 =new HBox();
+        hBox2.setSpacing(30);
+        hBox2.setPadding(new Insets(10,10,10,10));
+        hBox2.setAlignment(Pos.CENTER);
+        hBox2.getChildren().addAll(bookIdLable,bookIdTextField);
+
         VBox registerBorrowVbox=new VBox();
         registerBorrowVbox.setSpacing(30);
         registerBorrowVbox.setPadding(new Insets(10,10,10,10));
         registerBorrowVbox.setAlignment(Pos.CENTER);
-        registerBorrowVbox.getChildren().addAll(introLable,userIdLable,userIdTextField,bookIdLable,bookIdTextField,registerBorrowButton,returnButton);
+        registerBorrowVbox.getChildren().addAll(introLable,hBox1,hBox2,registerBorrowButton,returnButton);
 
 
 

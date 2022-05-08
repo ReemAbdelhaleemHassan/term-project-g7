@@ -27,14 +27,27 @@ public class AdminDashboard {
         window.show();
         //........................................//
         addLibrarianButton.setOnAction(e->{
-            Librarian librarian=new Librarian();
-            librarian.newLibrarian(window,adminDashboardScene);
+            UserInterface userInterface = new UserInterface();
+            userInterface.newUser(window, adminDashboardScene, 2);
         });
         viewLibrarianButton.setOnAction(e->{
             //Todo
+            ViewLibrarian viewLibrarian = new ViewLibrarian();
+            try {
+                viewLibrarian.viewLibrarian();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         deleteLibrarianButton.setOnAction(e->{
             //Todo
+            DeleteLibrarian deleteLibrarian = new DeleteLibrarian();
+            try {
+                //todo input username
+                deleteLibrarian.deleteLibrarian("user_name");
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         returnButton.setOnAction(e->{
             window.setScene(previous);

@@ -25,10 +25,20 @@ public class UserDashboard {
         window.show();
 
         viewAvailableBooksButton.setOnAction(e->{
-
+            ViewBooks viewBooks = new ViewBooks();
+            try {
+                viewBooks.viewBooks(1);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         viewMyBorrowedBooksButton.setOnAction(e->{
-
+            ViewBooks viewBooks = new ViewBooks();
+            try {
+                viewBooks.viewBooks(2);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         returnButton.setOnAction(e->{
             window.setScene(previous);

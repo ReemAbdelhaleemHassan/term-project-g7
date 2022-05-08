@@ -16,50 +16,34 @@ public class Main extends Application {
 
     @Override
     public void start(Stage window) throws Exception{
-        Duration duration1=Duration.millis(500);
-        Duration duration2=Duration.millis(750);
-        Duration duration3=Duration.millis(1000);
-
-        Animation animation=new Animation();
 
         //........................................................//
         Label introLable =new Label("Library Management System");
+        Button startButton = new Button("Let's get Started");
 
-        Button userLoginButton = new Button("user Login");
-        Button librarianLoginButton = new Button("Librarian Login");
-        Button adminLoginButton = new Button("Admin Login");
 
         VBox introVbox =new VBox();
         introVbox.setSpacing(30);
         introVbox.setPadding(new Insets(10,10,10,10));
         introVbox.setAlignment(Pos.CENTER);
-        introVbox.getChildren().addAll(introLable,userLoginButton,librarianLoginButton,adminLoginButton);
+        introVbox.getChildren().addAll(introLable,startButton);
 
         Scene introScene =new Scene(introVbox,800,600);
-        introScene.getStylesheets().add("file:library.css");
+        //introScene.getStylesheets().add(getClass().getResource("library.css").toExternalForm());
 
         //........................................................//
-        userLoginButton.setOnAction(e->{
-            LibraryUserLogin libraryUserLogin=new LibraryUserLogin();
-            libraryUserLogin.launchUserLogin(window,introScene);
+        startButton.setOnAction(e->{
+            Login login=new Login();
+            login.launchLogin(window,introScene);
         });
-        librarianLoginButton.setOnAction(e->{
-            LibrarianLogin librarianLogin=new LibrarianLogin();
-            librarianLogin.launchLibrarianLogin(window,introScene);
 
-        });
-        adminLoginButton.setOnAction(e->{
-            AdminLogin adminLogin=new AdminLogin();
-            adminLogin.launchAdminLogin(window,introScene);
-        });
         //........................................................//
         window.setScene(introScene);
         window.setTitle("Library Management System");
         window.show();
         //........................................................//
-        animation.parallelTransition(userLoginButton,duration1);
-        animation.parallelTransition(librarianLoginButton,duration2);
-        animation.parallelTransition(adminLoginButton,duration3);
+
+
     }
 
 

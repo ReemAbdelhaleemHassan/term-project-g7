@@ -16,7 +16,7 @@ public class ReturnBook {
     int bookID;
 
     public void returnBook(Stage window, Scene previous) {
-        Label introLable = new Label("register a return");
+        Label introLable = new Label("Register a return");
         Label userIdLable = new Label("user Id");
         Label bookIdLable = new Label("book Id");
 
@@ -26,11 +26,23 @@ public class ReturnBook {
         Button registerReturnButton = new Button("register");
         Button returnButton = new Button("return");
 
+        HBox hBox1 =new HBox();
+        hBox1.setSpacing(30);
+        hBox1.setPadding(new Insets(10,10,10,10));
+        hBox1.setAlignment(Pos.CENTER);
+        hBox1.getChildren().addAll(userIdLable,userIdTextField);
+
+        HBox hBox2 =new HBox();
+        hBox2.setSpacing(30);
+        hBox2.setPadding(new Insets(10,10,10,10));
+        hBox2.setAlignment(Pos.CENTER);
+        hBox2.getChildren().addAll(bookIdLable,bookIdTextField);
+
         VBox registerReturnVbox = new VBox();
         registerReturnVbox.setSpacing(30);
         registerReturnVbox.setPadding(new Insets(10, 10, 10, 10));
         registerReturnVbox.setAlignment(Pos.CENTER);
-        registerReturnVbox.getChildren().addAll(introLable, userIdLable, userIdTextField, bookIdLable, bookIdTextField, registerReturnButton, returnButton);
+        registerReturnVbox.getChildren().addAll(introLable,hBox1,hBox2, registerReturnButton, returnButton);
 
 
         Scene registerReturnScene = new Scene(registerReturnVbox, 800, 600);
@@ -52,3 +64,4 @@ public class ReturnBook {
 
     }
 }
+
