@@ -18,8 +18,8 @@ public class RegisterReturn {
         String updateAvailableBooks=null;
         String increment = null;
         String getBookQuery = "SELECT * FROM available_books WHERE '"+book_id+"'= isbn ";
-        Statement statement = null;
-        ResultSet rs = statement.executeQuery(getBookQuery);
+
+        ResultSet rs = databaseConnection.statement.executeQuery(getBookQuery);
         while(rs.next()){
             id = rs.getInt("isbn");
            bookName = rs.getString("book_name");
