@@ -55,8 +55,6 @@ public class ReturnBook {
             //todo
             userID = Integer.parseInt(userIdTextField.getText());
             bookID = Integer.parseInt(bookIdTextField.getText());
-
-
         });
 
         returnButton.setOnAction(e -> {

@@ -3,7 +3,6 @@ package DB;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import src.main.java.gui.BorrowBook;
 
 public class RegisterBorrow {
     public void register(int user_id, int book_id, LocalDate borrowDate,LocalDate returnDate) throws SQLException {
