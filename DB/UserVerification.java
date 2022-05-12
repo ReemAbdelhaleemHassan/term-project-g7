@@ -3,7 +3,7 @@ package DB;
 import java.sql.SQLException;
 
 public class UserVerification {
-    public void add(String userName ,String password ) throws SQLException {
+    public void verifyUser(String userName ,String password ) throws SQLException {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connect();
         String sql = "select user_name, password from user";

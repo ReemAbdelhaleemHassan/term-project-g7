@@ -1,4 +1,4 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;

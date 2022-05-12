@@ -1,11 +1,16 @@
-package main.java.gui;
+package src.main.java.gui;
 
+import DB.DeleteLibrarian;
+import DB.ViewLibrarian;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import src.main.java.gui.UserInterface;
+
+import java.sql.SQLException;
 
 public class AdminDashboard {
     public void launchAdminDashboard(Stage window ,Scene previous){

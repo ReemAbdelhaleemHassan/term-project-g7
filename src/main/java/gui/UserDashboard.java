@@ -1,11 +1,14 @@
-package main.java.gui;
+package src.main.java.gui;
 
+import DB.ViewBooks;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
 
 public class UserDashboard {
     public void launchUserDashboard(Stage window , Scene previous){

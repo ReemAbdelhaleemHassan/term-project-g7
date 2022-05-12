@@ -10,7 +10,7 @@ public class ViewBooks {
         if(cases == 1){
             sql = "select * from available_Books";
         } else if (cases == 2) {
-            sql = "select * from borrow_Books";
+            sql = "select * from borrow_Book";
         }
         databaseConnection.resultSet = databaseConnection.statement.executeQuery(sql);
         while(databaseConnection.resultSet.next()) {

@@ -1,5 +1,18 @@
 package src.main.java.gui;
 
+import DB.LibrarianVerification;
+import DB.UserVerification;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import src.main.java.gui.UserDashboard;
+
+import java.sql.SQLException;
+
 public class Login {
     private String userName;
     private String userPassword;
@@ -103,7 +116,7 @@ public class Login {
         //Todo verification
         LibrarianVerification librarianVerification = new LibrarianVerification();
         librarianVerification.verifyLibrarian(userName, password);
-        librarianDashboard librarianDashboard=new librarianDashboard();
+        LibrarianDashboard librarianDashboard=new LibrarianDashboard();
         librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
     }
     public void verifyAdminLogin(String userName , String password, Stage window, Scene userLoginScene){

@@ -1,4 +1,4 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import src.main.java.gui.Login;
 
 public class Main extends Application {
 

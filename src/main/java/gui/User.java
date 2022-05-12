@@ -1,4 +1,4 @@
-package main.java.gui;
+package src.main.java.gui;
 
 public class User {
     String name;
@@ -7,6 +7,7 @@ public class User {
     String address;
     String city;
     String email;
+    String username;
     String password;
 
 }
