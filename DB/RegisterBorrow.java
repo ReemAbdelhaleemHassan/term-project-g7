@@ -7,8 +7,9 @@ import java.time.LocalDate;
 
 
 public class RegisterBorrow {
-    int quantity;
-    public void register(int user_id, int book_id, LocalDate borrowDate,LocalDate returnDate) throws SQLException {
+    private static int quantity;
+
+    public static void register(int user_id, int book_id, LocalDate borrowDate, LocalDate returnDate) throws SQLException {
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connect();
@@ -20,6 +21,7 @@ public class RegisterBorrow {
         ResultSet rs = databaseConnection.statement.executeQuery(getBookQuery);
         while(rs.next()){
             quantity = rs.getInt("quantity");
+            System.out.println(quantity);
         }
 
 
@@ -35,8 +37,5 @@ public class RegisterBorrow {
             databaseConnection.statement.executeUpdate(delete);
 
         }
-
-
-
     }
 }

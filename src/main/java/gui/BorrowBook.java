@@ -1,5 +1,6 @@
 package src.main.java.gui;
 
+import DB.RegisterBorrow;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
@@ -79,6 +81,11 @@ public class BorrowBook {
             bookID=Integer.parseInt(bookIdTextField.getText());
             borrowDate=borrowDatePicker.getValue();
             returnDate=returnDatePicker.getValue();
+            try {
+                RegisterBorrow.register(userID,bookID,borrowDate,returnDate);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         });
 
         returnButton.setOnAction(e->{
