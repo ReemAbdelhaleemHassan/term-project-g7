@@ -1,4 +1,4 @@
-package Database;
+package DB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,14 +18,21 @@ public class RegisterBorrow {
         String decrement = null;
         String s = null;
 
-        //register Borrow Book
-        //decrement quantity of this book
         s = "SET FOREIGN_KEY_CHECKS=0;";
         decrement= "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='"+book_id+"')";
         sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('"+user_id+"','"+book_id+"','"+borrowDate+"','"+returnDate+"');";
-        databaseConnection.statement.executeUpdate(s);
-        databaseConnection.statement.executeUpdate(sql);
-        databaseConnection.statement.executeUpdate(decrement);
 
+        String getBookQuery = "SELECT * FROM available_books WHERE '"+book_id+"'= isbn ";
+
+        ResultSet rs = databaseConnection.statement.executeQuery(getBookQuery);
+        while(rs.next()){
+            quantity = rs.getInt("quantity");
+        }
+
+        if(quantity != 0){
+            databaseConnection.statement.executeUpdate(s);
+            databaseConnection.statement.executeUpdate(sql);
+            databaseConnection.statement.executeUpdate(decrement);
+        }
     }
 }
