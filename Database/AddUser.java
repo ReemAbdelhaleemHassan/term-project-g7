@@ -1,4 +1,4 @@
-package DB;
+package Database;
 
 import java.sql.SQLException;
 
@@ -15,4 +15,3 @@ public class AddUser {
         databaseConnection.statement.executeUpdate(sql);
     }
 }
-
