@@ -14,6 +14,7 @@ public class RegisterBorrow {
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connect();
 
+
         String sql= null;
         String decrement = null;
         String s = null;
@@ -26,6 +27,7 @@ public class RegisterBorrow {
         databaseConnection.statement.executeUpdate(s);
         databaseConnection.statement.executeUpdate(sql);
         databaseConnection.statement.executeUpdate(decrement);
+
 
     }
 }
