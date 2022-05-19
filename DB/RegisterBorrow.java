@@ -13,29 +13,21 @@ public class RegisterBorrow {
 
         DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connect();
+
+
         String sql= null;
         String decrement = null;
-        String delete = null;
-        String getBookQuery = "SELECT * FROM available_books WHERE '"+book_id+"'= isbn ";
+        String s = null;
 
-        ResultSet rs = databaseConnection.statement.executeQuery(getBookQuery);
-        while(rs.next()){
-            quantity = rs.getInt("quantity");
-            System.out.println(quantity);
-        }
+        //register Borrow Book
+        //decrement quantity of this book
+        s = "SET FOREIGN_KEY_CHECKS=0;";
+        decrement= "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='"+book_id+"')";
+        sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('"+user_id+"','"+book_id+"','"+borrowDate+"','"+returnDate+"');";
+        databaseConnection.statement.executeUpdate(s);
+        databaseConnection.statement.executeUpdate(sql);
+        databaseConnection.statement.executeUpdate(decrement);
 
 
-        if(quantity>=0){
-            // register Borrow Book
-            //decrement quantity of this book
-            decrement= "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='"+book_id+"')";
-            sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('"+user_id+"','"+book_id+"','"+borrowDate+"','"+returnDate+"');";
-            databaseConnection.statement.executeUpdate(sql);
-            databaseConnection.statement.executeUpdate(decrement);
-        }else{
-            delete = "DELETE FROM available_books WHERE isbn='"+book_id+"'";
-            databaseConnection.statement.executeUpdate(delete);
-
-        }
     }
 }
