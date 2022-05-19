@@ -19,5 +19,6 @@ public class RegisterReturn {
         //incerement quantity of this book
         increment = "UPDATE available_books SET quantity = quantity + 1 WHERE (isbn='"+book_id+"')";
         databaseConnection.statement.executeUpdate(increment);
+
     }
 }
