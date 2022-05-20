@@ -12,7 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+
 import java.util.Random;
+
 
 public class Book{
     int bookID;
@@ -20,9 +22,8 @@ public class Book{
     String genre;
     String author;
     String publisher;
+    String quantity_string;
     int quantity;
-    boolean status;
-
     public void newBook(Stage window ,Scene previous){
         Label introLable=new Label("new Book");
         Label nameLabel=new Label("Name");
@@ -82,23 +83,56 @@ public class Book{
         window.show();
 
         addBookButton.setOnAction(e->{
-            Random rand =new Random();
-            //bookID=rand.nextInt(1000)+1; //todo create unique ID
             name =nameTextField.getText();
             genre=genreTextField.getText();
             author=authorTextField.getText();
             publisher=publisherTextField.getText();
-            quantity=Integer.parseInt(quantityTextField.getText());
-            AddBook addBook = new AddBook();
-            try {
-                addBook.addbook(name,genre,author,publisher,quantity);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            quantity_string=quantityTextField.getText();
+
+            int ishandled=HandleEmptyText(name,genre,author,publisher,quantity_string);
+            if (ishandled==1){
+                quantity = Integer.parseInt(quantity_string);
+                AddBook addBook = new AddBook();
+                try {
+                    addBook.addbook(name,genre,author,publisher,quantity);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         returnButton.setOnAction(e->{
             window.setScene(previous);
         });
 
+    }
+
+    int HandleEmptyText(String name,String genre,String author,String publisher,String quantity){
+        int flag=1;
+        if (name.equals("")||genre.equals("")||author.equals("")||publisher.equals("")||quantity.equals("")){
+            errorMessage();
+            flag=0;
+        }
+        return flag;
+    }
+    private void errorMessage(){
+        Stage errorWindow =new Stage();
+        Label errorLable=new Label("please enter all information required");
+        Button okButton =new Button("OK");
+
+        VBox errorVBox=new VBox();
+        errorVBox.setSpacing(30);
+        errorVBox.setAlignment(Pos.CENTER);
+        errorVBox.getChildren().addAll(errorLable,okButton);
+
+        okButton.setOnAction(e->{
+            errorWindow.close();
+        });
+
+        Scene errorScene =new Scene(errorVBox,400,150);
+        errorScene.getStylesheets().addAll("file:library.css");
+
+        errorWindow.setScene(errorScene);
+        errorWindow.setTitle("error");
+        errorWindow.showAndWait();
     }
 }

@@ -13,7 +13,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+
 import java.sql.Timestamp;
+
 import java.time.LocalDate;
 
 public class BorrowBook {
@@ -33,6 +35,11 @@ public class BorrowBook {
         TextField bookIdTextField =new TextField();
         DatePicker borrowDatePicker = new DatePicker();
         DatePicker returnDatePicker = new DatePicker();
+
+        borrowDatePicker.setValue(LocalDate.now());
+        returnDatePicker.setValue(LocalDate.now());
+
+
 
         Button registerBorrowButton =new Button("register");
         Button returnButton =new Button("return");
@@ -77,6 +84,25 @@ public class BorrowBook {
 
         registerBorrowButton.setOnAction(e->{
             //todo
+
+            String userID_string=userIdTextField.getText();
+            String bookID_string=bookIdTextField.getText();
+
+
+            int ishandled=HandleEmptyText(userID_string,bookID_string);
+            if (ishandled==1){
+                userID=Integer.parseInt(userIdTextField.getText());
+                bookID=Integer.parseInt(bookIdTextField.getText());
+                borrowDate=borrowDatePicker.getValue();
+                returnDate=returnDatePicker.getValue();
+                try {
+                    RegisterBorrow.register(userID,bookID,borrowDate,returnDate);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+
+
             userID=Integer.parseInt(userIdTextField.getText());
             bookID=Integer.parseInt(bookIdTextField.getText());
             borrowDate=borrowDatePicker.getValue();
@@ -86,11 +112,42 @@ public class BorrowBook {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+
         });
 
         returnButton.setOnAction(e->{
             window.setScene(previous);
         });
 
+    }
+
+    private void errorMessage(){
+        Stage errorWindow =new Stage();
+        Label errorLable=new Label("please enter all information required");
+        Button okButton =new Button("OK");
+
+        VBox errorVBox=new VBox();
+        errorVBox.setSpacing(30);
+        errorVBox.setAlignment(Pos.CENTER);
+        errorVBox.getChildren().addAll(errorLable,okButton);
+
+        okButton.setOnAction(e->{
+            errorWindow.close();
+        });
+
+        Scene errorScene =new Scene(errorVBox,400,150);
+        errorScene.getStylesheets().addAll("file:library.css");
+
+        errorWindow.setScene(errorScene);
+        errorWindow.setTitle("error");
+        errorWindow.showAndWait();
+    }
+    int HandleEmptyText(String userid,String bookid){
+        int flag=1;
+        if (userid.equals("")||bookid.equals("")){
+            errorMessage();
+            flag=0;
+        }
+        return flag;
     }
 }
