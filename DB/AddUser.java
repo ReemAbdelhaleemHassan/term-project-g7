@@ -33,6 +33,7 @@ public class AddUser {
         for(int j=0;j<=usernames.size();j++){
             if(username== usernames.get(j)){
                 flag = true;
+                break;
             }
         }
         System.out.println(flag);
