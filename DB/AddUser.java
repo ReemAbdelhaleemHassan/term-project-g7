@@ -39,4 +39,25 @@ public class AddUser {
         System.out.println(flag);
         return flag;
     }
+
+    public boolean isLibrarianInDB(String username) throws SQLException {
+        boolean flag=false;
+        ArrayList<String> usernames = new ArrayList<>();
+        String returnUsernamesQuery = "SELECT user_name From librarian";
+        ResultSet rs = databaseConnection.statement.executeQuery(returnUsernamesQuery);
+
+        for (int i=1; rs.next(); i++)
+        {
+            usernames.add( rs.getString(i) );
+        }
+
+        for(int j=0;j<=usernames.size();j++){
+            if(username== usernames.get(j)){
+                flag = true;
+                break;
+            }
+        }
+        System.out.println(flag);
+        return flag;
+    }
 }
