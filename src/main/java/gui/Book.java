@@ -1,4 +1,4 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import DB.AddBook;
 import javafx.geometry.Insets;
@@ -12,6 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+
+import java.util.Random;
+
 
 public class Book{
     int bookID;

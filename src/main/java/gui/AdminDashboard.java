@@ -1,9 +1,11 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import DB.DeleteLibrarian;
 import DB.ViewLibrarian;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +14,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import src.main.java.gui.UserInterface;
+
+import java.sql.SQLException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

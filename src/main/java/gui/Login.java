@@ -10,6 +10,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import src.main.java.gui.UserDashboard;
+
+
 import java.sql.SQLException;
 
 public class Login {
@@ -120,6 +123,7 @@ public class Login {
     public void verifyLibrarianLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
         LibrarianVerification librarianVerification = new LibrarianVerification();
+
         verified = librarianVerification.verifyLibrarian(userName, password);
         if(verified==1){
             LibrarianDashboard librarianDashboard=new LibrarianDashboard();
@@ -128,6 +132,11 @@ public class Login {
             System.out.println("wrong username or password");
             errorMessage();
         }
+
+
+        librarianVerification.verifyLibrarian(userName, password);
+        LibrarianDashboard librarianDashboard=new LibrarianDashboard();
+        librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
 
     }
     public void verifyAdminLogin(String userName , String password, Stage window, Scene userLoginScene){

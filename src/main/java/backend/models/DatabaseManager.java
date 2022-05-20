@@ -1,4 +1,4 @@
-package main.java.backend.models;
+package src.main.java.backend.models;
 
 import java.sql.*;
 

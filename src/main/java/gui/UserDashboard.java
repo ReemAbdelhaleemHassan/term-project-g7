@@ -1,8 +1,10 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import DB.ViewBooks;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,8 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 import java.sql.*;
 import java.util.Date;
+
+import java.sql.SQLException;
+
 
 public class UserDashboard {
     String book_name;

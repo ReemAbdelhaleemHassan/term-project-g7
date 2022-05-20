@@ -1,4 +1,4 @@
-package main.java.gui;
+package src.main.java.gui;
 
 import DB.RegisterReturn;
 import javafx.geometry.Insets;
@@ -57,6 +57,7 @@ public class ReturnBook {
         RegisterReturn registerReturn = new RegisterReturn();
         registerReturnButton.setOnAction(e -> {
             //todo
+
             String userID_string;
             String bookID_string;
             userID_string = userIdTextField.getText();
@@ -71,6 +72,10 @@ public class ReturnBook {
                     throwables.printStackTrace();
                 }
             }
+
+            userID = Integer.parseInt(userIdTextField.getText());
+            bookID = Integer.parseInt(bookIdTextField.getText());
+
         });
 
         returnButton.setOnAction(e -> {
