@@ -1,6 +1,17 @@
 package src.main.java.gui;
 
-public class UserInterface extends User{
+import DB.AddUser;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.sql.SQLException;
+
+public class UserInterface extends User {
     public void newUser(Stage window, Scene previous, int cases){
         Label introLable=new Label("create account");
         Label nameLable=new Label("Name");
@@ -78,18 +89,53 @@ public class UserInterface extends User{
             username =usernameTextField.getText();
             password=passwordTextfield.getText();
 
-            age = Integer.parseInt(age_string);
-            phoneNumber = Integer.parseInt(phoneNumber_string);
-            //todo:save in database
-            AddUser addUser = new AddUser();
-            try {
-                addUser.addUser(name, age, phoneNumber, address, city, username, password, cases);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+
+            int ishandled=HandleEmptyText(name,age_string,phoneNumber_string,address,city,username,password);
+            if (ishandled==1){
+                //todo:save in database
+                age = Integer.parseInt(age_string);
+                phoneNumber = Integer.parseInt(phoneNumber_string);
+                AddUser addUser = new AddUser();
+                try {
+                    addUser.addUser(name, age, phoneNumber, address, city, username, password, cases);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+
         });
         returnButton.setOnAction(e->{
             window.setScene(previous);
         });
     }
+    int HandleEmptyText(String name,String age,String phonenumber,String address,String city,String username,String password){
+        int flag=1;
+        if (name.equals("")||age.equals("")||phonenumber.equals("")||address.equals("")||city.equals("")||username.equals("")||password.equals("")){
+            errorMessage();
+            flag=0;
+        }
+        return flag;
+    }
+    private void errorMessage(){
+        Stage errorWindow =new Stage();
+        Label errorLable=new Label("please enter all information required");
+        Button okButton =new Button("OK");
+
+        VBox errorVBox=new VBox();
+        errorVBox.setSpacing(30);
+        errorVBox.setAlignment(Pos.CENTER);
+        errorVBox.getChildren().addAll(errorLable,okButton);
+
+        okButton.setOnAction(e->{
+            errorWindow.close();
+        });
+
+        Scene errorScene =new Scene(errorVBox,400,150);
+        errorScene.getStylesheets().addAll("file:library.css");
+
+        errorWindow.setScene(errorScene);
+        errorWindow.setTitle("error");
+        errorWindow.showAndWait();
+    }
+
 }

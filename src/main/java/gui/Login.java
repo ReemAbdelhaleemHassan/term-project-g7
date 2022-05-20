@@ -1,8 +1,21 @@
 package src.main.java.gui;
 
+import DB.LibrarianVerification;
+import DB.UserVerification;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.sql.SQLException;
+
 public class Login {
     private String userName;
     private String userPassword;
+    int verified=0;
 
     public void launchLogin(Stage window , Scene previousScene){
 
@@ -95,16 +108,27 @@ public class Login {
     public void verifyUserLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
         UserVerification userVerification = new UserVerification();
-        userVerification.verifyUser(userName, password);
-        UserDashboard userDashboard=new UserDashboard();
-        userDashboard.launchUserDashboard(window,userLoginScene);
+        verified = userVerification.verifyUser(userName, password);
+        if(verified==1){
+            UserDashboard userDashboard=new UserDashboard();
+            userDashboard.launchUserDashboard(window,userLoginScene,userName);
+        }else{
+            System.out.println("wrong username or password");
+            errorMessage();
+        }
     }
     public void verifyLibrarianLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
         LibrarianVerification librarianVerification = new LibrarianVerification();
-        librarianVerification.verifyLibrarian(userName, password);
-        librarianDashboard librarianDashboard=new librarianDashboard();
-        librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
+        verified = librarianVerification.verifyLibrarian(userName, password);
+        if(verified==1){
+            LibrarianDashboard librarianDashboard=new LibrarianDashboard();
+            librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
+        }else{
+            System.out.println("wrong username or password");
+            errorMessage();
+        }
+
     }
     public void verifyAdminLogin(String userName , String password, Stage window, Scene userLoginScene){
         //Todo verification
