@@ -1,20 +1,21 @@
-package src.main.java.gui;
+package GUI;
 
 import DB.AddUser;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
+import java.util.regex.*;
+import java.util.Scanner;
+
 public class UserInterface extends User {
+    ErrorMessages errorMessages = new ErrorMessages();
     public void newUser(Stage window, Scene previous, int cases){
         Label introLable=new Label("create account");
         Label nameLable=new Label("Name");
@@ -78,9 +79,10 @@ public class UserInterface extends User {
         createUserAccountVbox.setAlignment(Pos.CENTER);
         createUserAccountVbox.getChildren().addAll(introLable,hBox1,hBox2,hBox3,hBox4,hBox5,hBox6,hBox7,createButton,returnButton);
 
-        Scene createUserAccountScene=new Scene(createUserAccountVbox,800,600);
+        Scene createUserAccountScene=new Scene(createUserAccountVbox,800,800);
         createUserAccountScene.getStylesheets().add("file:library.css");
         window.setScene(createUserAccountScene);
+        window.setMaximized(true);
         window.show();
 
         createButton.setOnAction(e->{
@@ -92,18 +94,57 @@ public class UserInterface extends User {
             username =usernameTextField.getText();
             password=passwordTextfield.getText();
 
-            age = Integer.parseInt(age_string);
-            phoneNumber = Integer.parseInt(phoneNumber_string);
-            //todo:save in database
-            AddUser addUser = new AddUser();
-            try {
-                addUser.addUser(name, age, phoneNumber, address, city, username, password, cases);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            boolean repeated = false;
+            int flag = 1;
+
+
+            int ishandled=HandleEmptyText(name,age_string,phoneNumber_string,address,city,username,password);
+            if (ishandled==1){
+                //todo:save in database
+                try {
+                    age = Integer.parseInt(age_string);
+                } catch (NumberFormatException w) {
+                    errorMessages.errorMessage("Please Enter number in age.");
+                    flag = 0;
+                }
+                try {
+                    phoneNumber = Integer.parseInt(phoneNumber_string);
+                } catch (NumberFormatException w) {
+                    errorMessages.errorMessage("Please Enter correct format of phonenumber(11).");
+                    flag = 0;
+                }
+
+
+                AddUser addUser = new AddUser();
+                try {
+                    if(flag==1){
+                        if(cases==1){
+                            repeated = addUser.isUserInDB(username);
+                        }else if(cases==2){
+                            repeated = addUser.isLibrarianInDB(username);
+                        }
+                        if(repeated){
+                            errorMessages.errorMessage("Username already Exists.");
+                        }else{
+                            addUser.addUser(name, age, phoneNumber, address, city, username, password, cases);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
+
         });
         returnButton.setOnAction(e->{
             window.setScene(previous);
         });
+    }
+    int HandleEmptyText(String name,String age,String phonenumber,String address,String city,String username,String password){
+        int flag=1;
+        if (name.equals("")||age.equals("")||phonenumber.equals("")||address.equals("")||city.equals("")||username.equals("")||password.equals("")){
+            errorMessages.errorMessage("please enter all information required");
+            flag=0;
+        }
+        return flag;
     }
 }

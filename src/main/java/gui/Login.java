@@ -1,6 +1,5 @@
-package src.main.java.gui;
+package GUI;
 
-import DB.LibrarianVerification;
 import DB.UserVerification;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,14 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.main.java.gui.UserDashboard;
 
 import java.sql.SQLException;
 
 public class Login {
     private String userName;
     private String userPassword;
-
+    int verified=0;
+    ErrorMessages errorMessages = new ErrorMessages();
     public void launchLogin(Stage window , Scene previousScene){
 
         Label userNameLable=new Label("username");
@@ -70,6 +69,7 @@ public class Login {
         Scene userLoginScene =new Scene(userVbox,800,600);
         userLoginScene.getStylesheets().add("file:library.css");
         window.setScene(userLoginScene);
+        window.setMaximized(true);
         window.show();
 
         //........................................................//
@@ -108,16 +108,25 @@ public class Login {
     public void verifyUserLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
         UserVerification userVerification = new UserVerification();
-        userVerification.verifyUser(userName, password);
-        UserDashboard userDashboard=new UserDashboard();
-        userDashboard.launchUserDashboard(window,userLoginScene);
+        verified = userVerification.verifyUser(userName, password, 1);
+        if(verified==1){
+            UserDashboard userDashboard=new UserDashboard();
+            userDashboard.launchUserDashboard(window,userLoginScene,userName);
+        }else{
+            errorMessages.errorMessage("Incorrect username or password");
+        }
     }
     public void verifyLibrarianLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
-        LibrarianVerification librarianVerification = new LibrarianVerification();
-        librarianVerification.verifyLibrarian(userName, password);
-        LibrarianDashboard librarianDashboard=new LibrarianDashboard();
-        librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
+        UserVerification userVerification = new UserVerification();
+        verified = userVerification.verifyUser(userName, password, 2);
+        if(verified==1){
+            LibrarianDashboard librarianDashboard=new LibrarianDashboard();
+            librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
+        }else{
+            errorMessages.errorMessage("Incorrect username or password");
+        }
+
     }
     public void verifyAdminLogin(String userName , String password, Stage window, Scene userLoginScene){
         //Todo verification
@@ -126,29 +135,8 @@ public class Login {
             adminDashboard.launchAdminDashboard(window,userLoginScene);
         }
         else {
-            errorMessage();
+            errorMessages.errorMessage("Incorrect username or password");
         }
 
-    }
-    private void errorMessage(){
-        Stage errorWindow =new Stage();
-        Label errorLable=new Label("Incorrect username or password");
-        Button okButton =new Button("OK");
-
-        VBox errorVBox=new VBox();
-        errorVBox.setSpacing(30);
-        errorVBox.setAlignment(Pos.CENTER);
-        errorVBox.getChildren().addAll(errorLable,okButton);
-
-        okButton.setOnAction(e->{
-            errorWindow.close();
-        });
-
-        Scene errorScene =new Scene(errorVBox,400,150);
-        errorScene.getStylesheets().addAll("file:library.css");
-
-        errorWindow.setScene(errorScene);
-        errorWindow.setTitle("error");
-        errorWindow.showAndWait();
     }
 }

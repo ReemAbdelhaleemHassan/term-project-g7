@@ -1,5 +1,7 @@
-package src.main.java.gui;
+package GUI;
 
+import DB.AddBook;
+import DB.AddUser;
 import DB.RegisterBorrow;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,8 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class BorrowBook {
@@ -22,6 +24,11 @@ public class BorrowBook {
     LocalDate borrowDate;
     LocalDate returnDate;
 
+    boolean existed_info = false;
+    boolean qauntity_info = false;
+    boolean book_exists = false;
+    boolean user_exists = false;
+    ErrorMessages errorMessages = new ErrorMessages();
     public void borrow(Stage window,Scene previous){
         Label introLable =new Label("Register a borrow");
         Label userIdLable =new Label("user Id");
@@ -33,6 +40,11 @@ public class BorrowBook {
         TextField bookIdTextField =new TextField();
         DatePicker borrowDatePicker = new DatePicker();
         DatePicker returnDatePicker = new DatePicker();
+
+        borrowDatePicker.setValue(LocalDate.now());
+        returnDatePicker.setValue(LocalDate.now());
+
+
 
         Button registerBorrowButton =new Button("register");
         Button returnButton =new Button("return");
@@ -72,25 +84,76 @@ public class BorrowBook {
         Scene registerBorrowScene=new Scene(registerBorrowVbox,800,600);
         registerBorrowScene.getStylesheets().add("file:library.css");
         window.setScene(registerBorrowScene);
+        window.setMaximized(true);
         window.show();
+
+        RegisterBorrow registerBorrow = new RegisterBorrow();
+        AddBook addBook = new AddBook();
 
 
         registerBorrowButton.setOnAction(e->{
             //todo
-            userID=Integer.parseInt(userIdTextField.getText());
-            bookID=Integer.parseInt(bookIdTextField.getText());
-            borrowDate=borrowDatePicker.getValue();
-            returnDate=returnDatePicker.getValue();
-            try {
-                RegisterBorrow.register(userID,bookID,borrowDate,returnDate);
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            String userID_string=userIdTextField.getText();
+            String bookID_string=bookIdTextField.getText();
+
+
+            int ishandled=HandleEmptyText(userID_string,bookID_string);
+            if (ishandled==1){
+                userID=Integer.parseInt(userIdTextField.getText());
+                bookID=Integer.parseInt(bookIdTextField.getText());
+                borrowDate=borrowDatePicker.getValue();
+                returnDate=returnDatePicker.getValue();
+                try {
+                    existed_info= registerBorrow.isInfoCorrect(userID,bookID);
+                    qauntity_info= registerBorrow.isQuantity(bookID);
+                    user_exists = registerBorrow.isUserInDB(userID);
+                    book_exists = addBook.isBookInDB(bookID);
+                    if(!existed_info && qauntity_info && user_exists && book_exists){
+                        RegisterBorrow.register(userID,bookID,borrowDate,returnDate);
+                    }else {
+                        errorMessages.errorMessage("Please enter right information");
+                    }
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }
+
         });
 
         returnButton.setOnAction(e->{
             window.setScene(previous);
         });
 
+    }
+
+    private void errorMessage(){
+        Stage errorWindow =new Stage();
+        Label errorLable=new Label("please enter all information required");
+        Button okButton =new Button("OK");
+
+        VBox errorVBox=new VBox();
+        errorVBox.setSpacing(30);
+        errorVBox.setAlignment(Pos.CENTER);
+        errorVBox.getChildren().addAll(errorLable,okButton);
+
+        okButton.setOnAction(e->{
+            errorWindow.close();
+        });
+
+        Scene errorScene =new Scene(errorVBox,400,150);
+        errorScene.getStylesheets().addAll("file:library.css");
+
+        errorWindow.setScene(errorScene);
+        errorWindow.setTitle("error");
+        errorWindow.showAndWait();
+    }
+    int HandleEmptyText(String userid,String bookid){
+        int flag=1;
+        if (userid.equals("")||bookid.equals("")){
+            errorMessage();
+            flag=0;
+        }
+        return flag;
     }
 }

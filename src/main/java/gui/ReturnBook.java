@@ -1,5 +1,6 @@
-package src.main.java.gui;
+package GUI;
 
+import DB.RegisterReturn;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,19 +11,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.sql.Timestamp;
+import java.sql.SQLException;
 
 public class ReturnBook {
     int userID;
     int bookID;
+    boolean true_info = false;
+    ErrorMessages errorMessages = new ErrorMessages();
 
     public void returnBook(Stage window, Scene previous) {
         Label introLable = new Label("Register a return");
         Label userIdLable = new Label("user Id");
         Label bookIdLable = new Label("book Id");
 
-        TextField userIdTextField = new TextField();
-        TextField bookIdTextField = new TextField();
+        TextField userIdTextField = new TextField("");
+        TextField bookIdTextField = new TextField("");
 
         Button registerReturnButton = new Button("register");
         Button returnButton = new Button("return");
@@ -49,18 +52,48 @@ public class ReturnBook {
         Scene registerReturnScene = new Scene(registerReturnVbox, 800, 600);
         registerReturnScene.getStylesheets().add("file:library.css");
         window.setScene(registerReturnScene);
+        window.setMaximized(true);
         window.show();
 
+        RegisterReturn registerReturn = new RegisterReturn();
         registerReturnButton.setOnAction(e -> {
             //todo
-            userID = Integer.parseInt(userIdTextField.getText());
-            bookID = Integer.parseInt(bookIdTextField.getText());
+            String userID_string;
+            String bookID_string;
+            userID_string = userIdTextField.getText();
+            bookID_string = bookIdTextField.getText();
+            int ishandled=HandleEmptyText(userID_string,bookID_string);
+            if (ishandled==1){
+                userID = Integer.parseInt(userID_string);
+                bookID = Integer.parseInt(bookID_string);
+                try {
+                    true_info = registerReturn.isInfoCorrect(userID,bookID);
+                    if(true_info){
+                        registerReturn.registerReturn(userID,bookID);
+                    }else{
+                        errorMessages.errorMessage("Please enter right information");
+                    }
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
         });
 
         returnButton.setOnAction(e -> {
             window.setScene(previous);
         });
 
+    }
+
+    int HandleEmptyText(String userid,String bookid){
+        int flag=1;
+        if (userid.equals("")||bookid.equals("")){
+            errorMessages.errorMessage("please enter all information required");
+            flag=0;
+
+        }
+        return flag;
     }
 }
 
