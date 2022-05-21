@@ -1,7 +1,6 @@
 package DB;
 
 import java.sql.*;
-import java.util.ArrayList;
 public class RegisterReturn {
     String deleteBorrowedBooks = null;
     String increment = null;
@@ -11,9 +10,7 @@ public class RegisterReturn {
         databaseConnection.connect();
 
         deleteBorrowedBooks = "DELETE FROM borrow_book WHERE `borrow_book`.`user_id` = '"+  user_id +"' AND `borrow_book`.`isbn` = '"+ book_id +"';";
-//        String s = "SET FOREIGN_KEY_CHECKS=0;";
 
-//        databaseConnection.statement.executeUpdate(s);
         databaseConnection.statement.executeUpdate(deleteBorrowedBooks);
 
         //register return book

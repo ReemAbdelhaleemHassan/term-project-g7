@@ -8,6 +8,7 @@ public class BookInfo {
     String author;
     String publisher;
     int quantity;
+
     public BookInfo(){
         this.isbn = 0;
         this.book_name = "";
@@ -15,8 +16,8 @@ public class BookInfo {
         this.author ="";
         this.publisher = "";
         this.quantity = 0;
-
     }
+
     public BookInfo(int isbn, String book_name,String genre, String author, String publisher, int quantity) {
         this.isbn = isbn;
         this.book_name = book_name;

@@ -2,7 +2,7 @@
 package GUI;
 
 
-public class Librarian extends User{
+public class Librarian extends GUI.User {
     public Librarian(){
         this.name="";
         this.age=0;

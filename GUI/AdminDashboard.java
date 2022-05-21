@@ -19,8 +19,7 @@ import javafx.stage.Stage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class AdminDashboard {
     ErrorMessages errorMessages = new ErrorMessages();
@@ -122,10 +121,9 @@ public class AdminDashboard {
         });
         //......................................................//
         deleteLibrarianButton.setOnAction(e->{
-            //Todo
+
             DeleteLibrarian deleteLibrarian = new DeleteLibrarian();
 
-            //todo input username
             Label introLable=new Label("Delete Librarian");
             Label usernameLable=new Label("enter Librarian username you want to delete:");
             TextField usernameTextfield=new TextField("");

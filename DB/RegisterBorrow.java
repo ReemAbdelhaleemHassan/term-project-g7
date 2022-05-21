@@ -3,7 +3,6 @@ package DB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 
 public class RegisterBorrow {
@@ -17,10 +16,8 @@ public class RegisterBorrow {
         String sql= null;
 
         String decrement = null;
-//        String s = null;
 
 
-//        s = "SET FOREIGN_KEY_CHECKS=0;";
         decrement= "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='"+book_id+"')";
         sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('"+user_id+"','"+book_id+"','"+borrowDate+"','"+returnDate+"');";
 
@@ -34,7 +31,7 @@ public class RegisterBorrow {
 
 
         if(quantity != 0){
-//            databaseConnection.statement.executeUpdate(s);
+
 
             databaseConnection.statement.executeUpdate(sql);
             databaseConnection.statement.executeUpdate(decrement);
