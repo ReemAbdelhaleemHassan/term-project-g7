@@ -1,4 +1,7 @@
-package src.main.java.gui;
+
+package GUI;
+
+
 import java.util.Date;
 
 public class BorrowedBookInfo {

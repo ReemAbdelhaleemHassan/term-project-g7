@@ -12,10 +12,8 @@ public class ViewBooks {
             sql = "select * from available_Books";
         } else if (cases == 2) {
             sql = "select * from borrow_Book";
-
         } else if (cases == 3){
             sql = "select * from borrow_Book natural join user where user_name = '"+userName+"';";
-
         }
         databaseConnection.resultSet = databaseConnection.statement.executeQuery(sql);
 

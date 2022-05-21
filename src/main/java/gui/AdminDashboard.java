@@ -1,5 +1,6 @@
-package src.main.java.gui;
+package GUI;
 
+import DB.AddUser;
 import DB.DeleteLibrarian;
 import DB.ViewLibrarian;
 
@@ -14,14 +15,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import src.main.java.gui.UserInterface;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AdminDashboard {
+    ErrorMessages errorMessages = new ErrorMessages();
     public void launchAdminDashboard(Stage window ,Scene previous){
 
         Button addLibrarianButton =new Button("Add Librarian");
@@ -38,6 +40,7 @@ public class AdminDashboard {
         Scene adminDashboardScene =new Scene(adminDashboardVbox,800,600);
         adminDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(adminDashboardScene);
+        window.setMaximized(true);
         window.show();
         //........................................//
         addLibrarianButton.setOnAction(e->{
@@ -107,6 +110,9 @@ public class AdminDashboard {
                 viewLibrarianVBox.setAlignment(Pos.CENTER);
                 viewLibrarianVBox.getChildren().addAll(tableView,return2Button);
                 Scene viewLibrarianscene=new Scene(viewLibrarianVBox,800,600);
+
+                viewLibrarianscene.getStylesheets().add("file:library.css");
+
                 window.setScene(viewLibrarianscene);
 
 
@@ -118,6 +124,7 @@ public class AdminDashboard {
         deleteLibrarianButton.setOnAction(e->{
             //Todo
             DeleteLibrarian deleteLibrarian = new DeleteLibrarian();
+
             //todo input username
             Label introLable=new Label("Delete Librarian");
             Label usernameLable=new Label("enter Librarian username you want to delete:");
@@ -137,14 +144,26 @@ public class AdminDashboard {
 
             deleteLibrarianVBox.getChildren().addAll(introLable,deleteLibrarianHbox,deleteButton,return2Button);
             Scene deleteLibrarianScene=new Scene(deleteLibrarianVBox,800,600);
+
+            deleteLibrarianScene.getStylesheets().add("file:library.css");
+
             window.setScene(deleteLibrarianScene);
             return2Button.setOnAction(event -> {
                 window.setScene(adminDashboardScene);
             });
             deleteButton.setOnAction(event->{
+
+                AddUser addUser = new AddUser();
+                boolean exists = false;
                 String username = usernameTextfield.getText();
                 try {
-                    deleteLibrarian.deleteLibrarian(username);
+                    exists = addUser.isLibrarianInDB(username);
+                    if(exists){
+                        deleteLibrarian.deleteLibrarian(username);
+                    }else{
+                        errorMessages.errorMessage("Please enter existed librarian");
+                    }
+
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

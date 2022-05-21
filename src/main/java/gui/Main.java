@@ -1,4 +1,4 @@
-package src.main.java.gui;
+package GUI;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -8,9 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Duration;
-import src.main.java.gui.Login;
 
 public class Main extends Application {
 
@@ -30,7 +27,7 @@ public class Main extends Application {
         introVbox.getChildren().addAll(introLable,startButton,exitButton);
 
         Scene introScene =new Scene(introVbox,800,600);
-        //introScene.getStylesheets().add(getClass().getResource("library.css").toExternalForm());
+        introScene.getStylesheets().add("file:library.css");
 
         //........................................................//
         startButton.setOnAction(e->{
@@ -45,6 +42,7 @@ public class Main extends Application {
         //........................................................//
         window.setScene(introScene);
         window.setTitle("Library Management System");
+        window.setMaximized(true);
         window.show();
         //........................................................//
 

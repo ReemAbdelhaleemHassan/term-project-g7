@@ -1,10 +1,9 @@
-package src.main.java.gui;
+package GUI;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Animation {

@@ -1,4 +1,4 @@
-package src.main.java.gui;
+package GUI;
 
 import DB.ViewBooks;
 
@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.sql.*;
 import java.util.Date;
 
-import java.sql.SQLException;
 
 
 public class UserDashboard {
@@ -44,6 +43,7 @@ public class UserDashboard {
         Scene userDashboardScene=new Scene(userDashboardVbox,800,600);
         userDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(userDashboardScene);
+        window.setMaximized(true);
         window.show();
         //..................................................//
         viewAvailableBooksButton.setOnAction(e->{
@@ -96,6 +96,8 @@ public class UserDashboard {
                 ViewBooksVBox.getChildren().addAll(tableView,return2Button);
 
                 Scene viewBooksScene=new Scene(ViewBooksVBox,800,600);
+                viewBooksScene.getStylesheets().add("file:library.css");
+
                 window.setScene(viewBooksScene);
 
             } catch (SQLException ex) {
@@ -154,6 +156,8 @@ public class UserDashboard {
                 myBorrowedBooksVBox.getChildren().addAll(tableView,return2Button);
 
                 Scene myBorrowedBookScene=new Scene(myBorrowedBooksVBox,800,600);
+                myBorrowedBookScene.getStylesheets().add("file:library.css");
+
                 window.setScene(myBorrowedBookScene);
 
             } catch (SQLException ex) {

@@ -1,4 +1,6 @@
-package src.main.java.gui;
+
+package GUI;
+
 public class BookInfo {
     int isbn;
     String book_name;

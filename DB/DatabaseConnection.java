@@ -3,12 +3,13 @@ package DB;
 import java.sql.*;
 
 public class DatabaseConnection {
+ database
+    public Statement statement;
+    ResultSet resultSet;
 
-     public Statement statement;
-    public ResultSet resultSet;
     public void connect(){
         try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_schema","root","password");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_schema","root","");
             statement = connection.createStatement();
 
         }catch (Exception e){
@@ -20,6 +21,15 @@ public class DatabaseConnection {
     public void close(){
         try{
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_schema","root","password");
+            connection.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void close(){
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_schema","root","");
             connection.close();
 
         }catch (Exception e){

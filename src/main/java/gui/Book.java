@@ -1,4 +1,4 @@
-package src.main.java.gui;
+package GUI;
 
 import DB.AddBook;
 import javafx.geometry.Insets;
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-import java.util.Random;
+
 
 
 public class Book{
@@ -80,6 +80,7 @@ public class Book{
         Scene addBookScene=new Scene(newBookVbox,800,600);
         addBookScene.getStylesheets().add("file:library.css");
         window.setScene(addBookScene);
+        window.setMaximized(true);
         window.show();
 
         addBookButton.setOnAction(e->{

@@ -2,27 +2,28 @@ package DB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 
 public class RegisterBorrow {
     private static int quantity;
+    static DatabaseConnection databaseConnection = new DatabaseConnection();
 
     public static void register(int user_id, int book_id, LocalDate borrowDate, LocalDate returnDate) throws SQLException {
-
-        DatabaseConnection databaseConnection = new DatabaseConnection();
         databaseConnection.connect();
 
 
-        String sql = null;
-        String decrement = null;
-        String s = null;
+        String sql= null;
 
-        s = "SET FOREIGN_KEY_CHECKS=0;";
-        decrement = "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='" + book_id + "')";
-        sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('" + user_id + "','" + book_id + "','" + borrowDate + "','" + returnDate + "');";
+        String decrement = null;
+//        String s = null;
+
+
+//        s = "SET FOREIGN_KEY_CHECKS=0;";
+        decrement= "UPDATE available_books SET quantity = quantity - 1 WHERE (isbn='"+book_id+"')";
+        sql = "INSERT INTO `borrow_book` (`user_id`,`isbn`,`pick_up_date`,`return_date`) VALUES ('"+user_id+"','"+book_id+"','"+borrowDate+"','"+returnDate+"');";
+
 
         String getBookQuery = "SELECT * FROM available_books WHERE '" + book_id + "'= isbn ";
 
@@ -31,46 +32,63 @@ public class RegisterBorrow {
             quantity = rs.getInt("quantity");
         }
 
-        if (quantity != 0) {
-            databaseConnection.statement.executeUpdate(s);
+
+        if(quantity != 0){
+//            databaseConnection.statement.executeUpdate(s);
+
             databaseConnection.statement.executeUpdate(sql);
             databaseConnection.statement.executeUpdate(decrement);
         }
     }
 
     public boolean isInfoCorrect(int userId, int isbn) throws SQLException {
-        DatabaseConnection databaseConnection = new DatabaseConnection();
+
+
         databaseConnection.connect();
 
         boolean flag = false;
-        ArrayList<Integer> user_ids = new ArrayList<>();
-        String returnUserIDQuery = "SELECT user_id FROM user";
-        ResultSet rs = databaseConnection.statement.executeQuery(returnUserIDQuery);
+        String returnUserIDQuery = "SELECT user_id, isbn FROM `borrow_book`";
+        databaseConnection.resultSet = databaseConnection.statement.executeQuery(returnUserIDQuery);
 
-        for (int i = 1; rs.next(); i++) {
-            user_ids.add(rs.getInt(i));
-        }
+        while(databaseConnection.resultSet.next()) {
+            if(userId==databaseConnection.resultSet.getInt("user_id") && isbn==databaseConnection.resultSet.getInt("isbn")){
 
-
-        for (int j = 0; j <= user_ids.size(); j++) {
-            if (userId == user_ids.get(j)) {
                 flag = true;
                 break;
             }
         }
 
+        return flag;
+    }
 
-        ArrayList<Integer> book_ids = new ArrayList<>();
-        String returnBookIDQuery = "SELECT isbn FROM available_books";
-        ResultSet rs2 = databaseConnection.statement.executeQuery(returnBookIDQuery);
+    public boolean isQuantity(int isbn) throws SQLException {
+        databaseConnection.connect();
 
-        for (int i = 1; rs2.next(); i++) {
-            book_ids.add(rs2.getInt(i));
+        boolean flag = false;
+        String returnBookIDQuery = "SELECT isbn, quantity FROM `available_books`";
+        databaseConnection.resultSet = databaseConnection.statement.executeQuery(returnBookIDQuery);
+
+        while(databaseConnection.resultSet.next()) {
+            if(isbn==databaseConnection.resultSet.getInt("isbn")){
+                quantity = databaseConnection.resultSet.getInt("quantity");
+                if(quantity>0) {
+                    flag = true;
+                }
+                break;
+            }
         }
+        return flag;
+    }
 
+    public boolean isUserInDB(int user_id) throws SQLException {
+        databaseConnection.connect();
+        boolean flag=false;
+        String returnUsernamesQuery = "SELECT user_id From user";
+        databaseConnection.resultSet = databaseConnection.statement.executeQuery(returnUsernamesQuery);
 
-        for (int j = 0; j <= book_ids.size(); j++) {
-            if (isbn == book_ids.get(j)) {
+        while(databaseConnection.resultSet.next()) {
+            if(user_id == databaseConnection.resultSet.getInt("user_id")){
+
                 flag = true;
                 break;
             }

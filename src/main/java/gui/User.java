@@ -1,4 +1,4 @@
-package src.main.java.gui;
+package GUI;
 
 public class User {
     String name;

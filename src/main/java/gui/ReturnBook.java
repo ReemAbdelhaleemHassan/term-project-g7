@@ -1,4 +1,4 @@
-package src.main.java.gui;
+package GUI;
 
 import DB.RegisterReturn;
 import javafx.geometry.Insets;
@@ -16,6 +16,8 @@ import java.sql.SQLException;
 public class ReturnBook {
     int userID;
     int bookID;
+    boolean true_info = false;
+    ErrorMessages errorMessages = new ErrorMessages();
 
 
 
@@ -52,6 +54,7 @@ public class ReturnBook {
         Scene registerReturnScene = new Scene(registerReturnVbox, 800, 600);
         registerReturnScene.getStylesheets().add("file:library.css");
         window.setScene(registerReturnScene);
+        window.setMaximized(true);
         window.show();
 
         RegisterReturn registerReturn = new RegisterReturn();
@@ -67,14 +70,19 @@ public class ReturnBook {
                 userID = Integer.parseInt(userID_string);
                 bookID = Integer.parseInt(bookID_string);
                 try {
-                    registerReturn.registerReturn(userID,bookID);
+
+                    true_info = registerReturn.isInfoCorrect(userID,bookID);
+                    if(true_info){
+                        registerReturn.registerReturn(userID,bookID);
+                    }else{
+                        errorMessages.errorMessage("Please enter right information");
+                    }
+
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
-
-            userID = Integer.parseInt(userIdTextField.getText());
-            bookID = Integer.parseInt(bookIdTextField.getText());
 
         });
 
@@ -84,31 +92,12 @@ public class ReturnBook {
 
     }
 
-    private void errorMessage(){
-        Stage errorWindow =new Stage();
-        Label errorLable=new Label("please enter all information required");
-        Button okButton =new Button("OK");
 
-        VBox errorVBox=new VBox();
-        errorVBox.setSpacing(30);
-        errorVBox.setAlignment(Pos.CENTER);
-        errorVBox.getChildren().addAll(errorLable,okButton);
-
-        okButton.setOnAction(e->{
-            errorWindow.close();
-        });
-
-        Scene errorScene =new Scene(errorVBox,400,150);
-        errorScene.getStylesheets().addAll("file:library.css");
-
-        errorWindow.setScene(errorScene);
-        errorWindow.setTitle("error");
-        errorWindow.showAndWait();
-    }
     int HandleEmptyText(String userid,String bookid){
         int flag=1;
         if (userid.equals("")||bookid.equals("")){
-            errorMessage();
+            errorMessages.errorMessage("please enter all information required");
+
             flag=0;
 
         }
