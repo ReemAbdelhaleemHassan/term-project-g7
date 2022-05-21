@@ -18,6 +18,12 @@ import java.sql.SQLException;
 import java.util.Date;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
+
+
 public class LibrarianDashboard {
 
     public void launchLibrarianDashboard(Stage window , Scene previous){
@@ -98,7 +104,9 @@ public class LibrarianDashboard {
                 ViewBooksVBox.getChildren().addAll(tableView,return2Button);
 
                 Scene viewBorrowedBookScene=new Scene(ViewBooksVBox,800,600);
+
                 viewBorrowedBookScene.getStylesheets().add("file:library.css");
+
                 window.setScene(viewBorrowedBookScene);
 
             } catch (SQLException ex) {

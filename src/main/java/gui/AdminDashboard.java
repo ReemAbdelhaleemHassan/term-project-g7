@@ -3,8 +3,10 @@ package GUI;
 import DB.AddUser;
 import DB.DeleteLibrarian;
 import DB.ViewLibrarian;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -105,7 +110,9 @@ public class AdminDashboard {
                 viewLibrarianVBox.setAlignment(Pos.CENTER);
                 viewLibrarianVBox.getChildren().addAll(tableView,return2Button);
                 Scene viewLibrarianscene=new Scene(viewLibrarianVBox,800,600);
+
                 viewLibrarianscene.getStylesheets().add("file:library.css");
+
                 window.setScene(viewLibrarianscene);
 
 
@@ -137,12 +144,15 @@ public class AdminDashboard {
 
             deleteLibrarianVBox.getChildren().addAll(introLable,deleteLibrarianHbox,deleteButton,return2Button);
             Scene deleteLibrarianScene=new Scene(deleteLibrarianVBox,800,600);
+
             deleteLibrarianScene.getStylesheets().add("file:library.css");
+
             window.setScene(deleteLibrarianScene);
             return2Button.setOnAction(event -> {
                 window.setScene(adminDashboardScene);
             });
             deleteButton.setOnAction(event->{
+
                 AddUser addUser = new AddUser();
                 boolean exists = false;
                 String username = usernameTextfield.getText();
@@ -153,6 +163,7 @@ public class AdminDashboard {
                     }else{
                         errorMessages.errorMessage("Please enter existed librarian");
                     }
+
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

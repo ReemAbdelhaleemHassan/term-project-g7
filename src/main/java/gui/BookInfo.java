@@ -1,3 +1,4 @@
+
 package GUI;
 
 public class BookInfo {
@@ -75,3 +76,4 @@ public class BookInfo {
         this.quantity = quantity;
     }
 }
+

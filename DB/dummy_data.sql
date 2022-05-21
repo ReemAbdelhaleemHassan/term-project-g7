@@ -11,11 +11,11 @@ values
 
 INSERT INTO `user` (`first_name`, `user_name`, `password`, `age`, `phone_number`, `address`, `city`)
 VALUES
-('Khaled', 'Khaled', '1234', '22', '2334', 'Alex', 'Alex'),
-('Riham', 'Riham', '1234', '23', '01000', 'fdxv', 'Alex'),
-('Reem', 'Reem', '1234', '24', '01555921663', 'fdxv', 'Alex'),
-('Kamal', 'Kamal', '1234', '25', '01115437895', 'fdxv', 'Cairo'),
-('Gammal', 'Gammal', '1234', '26', '2334', 'fdxv', 'Cairo');
+('Khaled', 'Khaled', '12345678', '22', '2334', 'Alex', 'Alex'),
+('Riham', 'Riham', '12345678', '23', '01000', 'fdxv', 'Alex'),
+('Reem', 'Reem', '12345678', '24', '01555921663', 'fdxv', 'Alex'),
+('Kamal', 'Kamal', '12345678', '25', '01115437895', 'fdxv', 'Cairo'),
+('Gammal', 'Gammal', '12345678', '26', '2334', 'fdxv', 'Cairo');
 
 INSERT INTO `librarian` (`first_name`, `user_name`, `password`, `age`, `phone_number`, `address`, `city`)
 VALUES

@@ -19,6 +19,8 @@ public class ReturnBook {
     boolean true_info = false;
     ErrorMessages errorMessages = new ErrorMessages();
 
+
+
     public void returnBook(Stage window, Scene previous) {
         Label introLable = new Label("Register a return");
         Label userIdLable = new Label("user Id");
@@ -58,6 +60,7 @@ public class ReturnBook {
         RegisterReturn registerReturn = new RegisterReturn();
         registerReturnButton.setOnAction(e -> {
             //todo
+
             String userID_string;
             String bookID_string;
             userID_string = userIdTextField.getText();
@@ -67,6 +70,7 @@ public class ReturnBook {
                 userID = Integer.parseInt(userID_string);
                 bookID = Integer.parseInt(bookID_string);
                 try {
+
                     true_info = registerReturn.isInfoCorrect(userID,bookID);
                     if(true_info){
                         registerReturn.registerReturn(userID,bookID);
@@ -74,10 +78,12 @@ public class ReturnBook {
                         errorMessages.errorMessage("Please enter right information");
                     }
 
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
             }
+
         });
 
         returnButton.setOnAction(e -> {
@@ -86,14 +92,17 @@ public class ReturnBook {
 
     }
 
+
     int HandleEmptyText(String userid,String bookid){
         int flag=1;
         if (userid.equals("")||bookid.equals("")){
             errorMessages.errorMessage("please enter all information required");
+
             flag=0;
 
         }
         return flag;
     }
 }
+
 

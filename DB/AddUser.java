@@ -1,10 +1,13 @@
 package DB;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AddUser {
     DatabaseConnection databaseConnection = new DatabaseConnection();
     public void addUser(String first_name, int age, int phone_number, String address, String city, String user_name, String password, int cases) throws SQLException {
+
         databaseConnection.connect();
         String sql = null;
         if (cases == 1){
@@ -14,6 +17,7 @@ public class AddUser {
         }
         databaseConnection.statement.executeUpdate(sql);
     }
+
     public boolean isUserInDB(String username) throws SQLException {
         databaseConnection.connect();
         boolean flag=false;
@@ -22,14 +26,18 @@ public class AddUser {
 
         while(databaseConnection.resultSet.next()) {
             if(username.equals(databaseConnection.resultSet.getString("user_name"))){
+
                 flag = true;
                 break;
             }
         }
+
+
         return flag;
     }
 
     public boolean isLibrarianInDB(String username) throws SQLException {
+
         databaseConnection.connect();
         boolean flag=false;
         String returnUsernamesQuery = "SELECT user_name From librarian";
@@ -37,10 +45,13 @@ public class AddUser {
 
         while(databaseConnection.resultSet.next()) {
             if(username.equals(databaseConnection.resultSet.getString("user_name"))){
+
                 flag = true;
                 break;
             }
         }
+
+
         return flag;
     }
 }

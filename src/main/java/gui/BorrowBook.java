@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.sql.SQLException;
+
 import java.time.LocalDate;
 
 public class BorrowBook {
@@ -93,6 +94,7 @@ public class BorrowBook {
 
         registerBorrowButton.setOnAction(e->{
             //todo
+
             String userID_string=userIdTextField.getText();
             String bookID_string=bookIdTextField.getText();
 
@@ -104,6 +106,7 @@ public class BorrowBook {
                 borrowDate=borrowDatePicker.getValue();
                 returnDate=returnDatePicker.getValue();
                 try {
+
                     existed_info= registerBorrow.isInfoCorrect(userID,bookID);
                     qauntity_info= registerBorrow.isQuantity(bookID);
                     user_exists = registerBorrow.isUserInDB(userID);
@@ -117,6 +120,7 @@ public class BorrowBook {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+
             }
 
         });

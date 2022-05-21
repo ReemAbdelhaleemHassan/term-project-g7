@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -94,13 +95,16 @@ public class UserInterface extends User {
             username =usernameTextField.getText();
             password=passwordTextfield.getText();
 
+
             boolean repeated = false;
             int flag = 1;
+
 
 
             int ishandled=HandleEmptyText(name,age_string,phoneNumber_string,address,city,username,password);
             if (ishandled==1){
                 //todo:save in database
+
                 try {
                     age = Integer.parseInt(age_string);
                 } catch (NumberFormatException w) {
@@ -129,6 +133,7 @@ public class UserInterface extends User {
                             addUser.addUser(name, age, phoneNumber, address, city, username, password, cases);
                         }
                     }
+
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -143,8 +148,10 @@ public class UserInterface extends User {
         int flag=1;
         if (name.equals("")||age.equals("")||phonenumber.equals("")||address.equals("")||city.equals("")||username.equals("")||password.equals("")){
             errorMessages.errorMessage("please enter all information required");
+
             flag=0;
         }
         return flag;
     }
+
 }

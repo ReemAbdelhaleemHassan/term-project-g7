@@ -9,13 +9,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+
 import java.sql.SQLException;
 
 public class Login {
     private String userName;
     private String userPassword;
     int verified=0;
+
     ErrorMessages errorMessages = new ErrorMessages();
+
     public void launchLogin(Stage window , Scene previousScene){
 
         Label userNameLable=new Label("username");
@@ -108,24 +112,32 @@ public class Login {
     public void verifyUserLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
         UserVerification userVerification = new UserVerification();
+
         verified = userVerification.verifyUser(userName, password, 1);
+
         if(verified==1){
             UserDashboard userDashboard=new UserDashboard();
             userDashboard.launchUserDashboard(window,userLoginScene,userName);
         }else{
+
             errorMessages.errorMessage("Incorrect username or password");
+
         }
     }
     public void verifyLibrarianLogin(String userName , String password, Stage window, Scene userLoginScene) throws SQLException {
         //Todo verification
+
         UserVerification userVerification = new UserVerification();
         verified = userVerification.verifyUser(userName, password, 2);
+
         if(verified==1){
             LibrarianDashboard librarianDashboard=new LibrarianDashboard();
             librarianDashboard.launchLibrarianDashboard(window,userLoginScene);
         }else{
+
             errorMessages.errorMessage("Incorrect username or password");
         }
+
 
     }
     public void verifyAdminLogin(String userName , String password, Stage window, Scene userLoginScene){
