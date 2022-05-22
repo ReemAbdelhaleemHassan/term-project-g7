@@ -22,7 +22,7 @@ public class ErrorMessages {
             errorWindow.close();
         });
 
-        Scene errorScene =new Scene(errorVBox,400,150);
+        Scene errorScene =new Scene(errorVBox,700,150);
         errorScene.getStylesheets().addAll("file:library.css");
 
         errorWindow.setScene(errorScene);

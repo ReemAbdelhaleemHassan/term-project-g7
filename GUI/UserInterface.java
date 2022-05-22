@@ -114,7 +114,20 @@ public class UserInterface extends User {
                 try {
                     phoneNumber = Integer.parseInt(phoneNumber_string);
                 } catch (NumberFormatException w) {
-                    errorMessages.errorMessage("Please Enter correct format of phonenumber(11).");
+                    errorMessages.errorMessage("Please Enter correct format of phonenumber.");
+                    flag = 0;
+                }
+
+                if(cases==1 && age<14){
+                    errorMessages.errorMessage("Appropriate age for library user is above 14");
+                    flag = 0;
+                }
+                if(cases==2 && age<21){
+                    errorMessages.errorMessage("Appropriate age for librarian is above 21");
+                    flag = 0;
+                }
+                if(phoneNumber<1000000000 || phoneNumber>1999999999){
+                    errorMessages.errorMessage("Please Enter correct format of phonenumber\n(11 digits starting with '01').");
                     flag = 0;
                 }
 
