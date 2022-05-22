@@ -30,6 +30,7 @@ public class BorrowBook {
     boolean book_exists = false;
     boolean user_exists = false;
     ErrorMessages errorMessages = new ErrorMessages();
+
     public void borrow(Stage window,Scene previous){
         Label introLable =new Label("Register a borrow");
         Label userIdLable =new Label("user Id");
@@ -85,6 +86,7 @@ public class BorrowBook {
         Scene registerBorrowScene=new Scene(registerBorrowVbox,800,600);
         registerBorrowScene.getStylesheets().add("file:library.css");
         window.setScene(registerBorrowScene);
+        window.setMaximized(true);
         window.show();
 
         RegisterBorrow registerBorrow = new RegisterBorrow();
@@ -103,13 +105,16 @@ public class BorrowBook {
                 bookID=Integer.parseInt(bookIdTextField.getText());
                 borrowDate=borrowDatePicker.getValue();
                 returnDate=returnDatePicker.getValue();
+                if(borrowDate.compareTo(returnDate)>0){
+                    errorMessages.errorMessage("Return date must be after borrow date");
+                }
                 try {
 
                     existed_info= registerBorrow.isInfoCorrect(userID,bookID);
                     qauntity_info= registerBorrow.isQuantity(bookID);
                     user_exists = registerBorrow.isUserInDB(userID);
                     book_exists = addBook.isBookInDB(bookID);
-                    if(!existed_info && qauntity_info && user_exists && book_exists){
+                    if(!existed_info && qauntity_info && user_exists && book_exists && borrowDate.compareTo(returnDate)<=0){
                         RegisterBorrow.register(userID,bookID,borrowDate,returnDate);
                     }else {
                         errorMessages.errorMessage("Please enter right information");
@@ -129,31 +134,11 @@ public class BorrowBook {
 
     }
 
-    private void errorMessage(){
-        Stage errorWindow =new Stage();
-        Label errorLable=new Label("please enter all information required");
-        Button okButton =new Button("OK");
 
-        VBox errorVBox=new VBox();
-        errorVBox.setSpacing(30);
-        errorVBox.setAlignment(Pos.CENTER);
-        errorVBox.getChildren().addAll(errorLable,okButton);
-
-        okButton.setOnAction(e->{
-            errorWindow.close();
-        });
-
-        Scene errorScene =new Scene(errorVBox,400,150);
-        errorScene.getStylesheets().addAll("file:library.css");
-
-        errorWindow.setScene(errorScene);
-        errorWindow.setTitle("error");
-        errorWindow.showAndWait();
-    }
     int HandleEmptyText(String userid,String bookid){
         int flag=1;
         if (userid.equals("")||bookid.equals("")){
-            errorMessage();
+            errorMessages.errorMessage("enter the required information");
             flag=0;
         }
         return flag;

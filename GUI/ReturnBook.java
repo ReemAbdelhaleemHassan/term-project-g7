@@ -54,6 +54,7 @@ public class ReturnBook {
         Scene registerReturnScene = new Scene(registerReturnVbox, 800, 600);
         registerReturnScene.getStylesheets().add("file:library.css");
         window.setScene(registerReturnScene);
+        window.setMaximized(true);
         window.show();
 
         RegisterReturn registerReturn = new RegisterReturn();
