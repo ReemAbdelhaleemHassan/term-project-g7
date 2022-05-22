@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 import java.sql.*;
@@ -22,6 +23,10 @@ import java.util.Date;
 
 
 public class UserDashboard {
+    Animation animation=new Animation();
+    Duration duration1=Duration.millis(500);
+    Duration duration2=Duration.millis(750);
+    Duration duration3=Duration.millis(1000);
     String book_name;
     int isbn;
     String genre;
@@ -41,6 +46,9 @@ public class UserDashboard {
         userDashboardVbox.getChildren().addAll(viewAvailableBooksButton,viewMyBorrowedBooksButton,returnButton);
 
         Scene userDashboardScene=new Scene(userDashboardVbox,800,600);
+        animation.parallelTransition(viewAvailableBooksButton,duration1);
+        animation.parallelTransition(viewMyBorrowedBooksButton,duration2);
+        animation.parallelTransition(returnButton,duration3);
         userDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(userDashboardScene);
         window.show();

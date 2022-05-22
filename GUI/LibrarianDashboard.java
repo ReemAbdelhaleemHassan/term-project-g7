@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +24,12 @@ import java.util.Date;
 
 
 public class LibrarianDashboard {
+    Animation animation=new Animation();
+    Duration duration1=Duration.millis(500);
+    Duration duration2=Duration.millis(750);
+    Duration duration3=Duration.millis(1000);
+    Duration duration4=Duration.millis(1250);
+    Duration duration5=Duration.millis(1500);
 
     public void launchLibrarianDashboard(Stage window , Scene previous){
         Button addBookButton = new Button("Add book");
@@ -38,6 +45,11 @@ public class LibrarianDashboard {
         librarianDashboardVbox.getChildren().addAll(addBookButton,viewBorrowedBooksButton,registerABorrowButton,registerAReturnButton,returnButton);
 
         Scene librarianDashboardScene =new Scene(librarianDashboardVbox,800,600);
+        animation.parallelTransition(addBookButton,duration1);
+        animation.parallelTransition(viewBorrowedBooksButton,duration2);
+        animation.parallelTransition(registerABorrowButton,duration3);
+        animation.parallelTransition(registerAReturnButton,duration4);
+        animation.parallelTransition(returnButton,duration5);
         librarianDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(librarianDashboardScene);
         window.show();

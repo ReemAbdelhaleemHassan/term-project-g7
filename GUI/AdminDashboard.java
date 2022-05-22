@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +23,11 @@ import java.sql.SQLException;
 
 
 public class AdminDashboard {
+    Animation animation=new Animation();
+    Duration duration1=Duration.millis(500);
+    Duration duration2=Duration.millis(750);
+    Duration duration3=Duration.millis(1000);
+    Duration duration4=Duration.millis(1250);
     ErrorMessages errorMessages = new ErrorMessages();
     public void launchAdminDashboard(Stage window ,Scene previous){
 
@@ -37,6 +43,10 @@ public class AdminDashboard {
         adminDashboardVbox.getChildren().addAll(addLibrarianButton,viewLibrarianButton,deleteLibrarianButton,returnButton);
 
         Scene adminDashboardScene =new Scene(adminDashboardVbox,800,600);
+        animation.parallelTransition(addLibrarianButton,duration1);
+        animation.parallelTransition(viewLibrarianButton,duration2);
+        animation.parallelTransition(deleteLibrarianButton,duration3);
+        animation.parallelTransition(returnButton,duration4);
         adminDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(adminDashboardScene);
         window.show();

@@ -83,6 +83,7 @@ public class UserInterface extends User {
         Scene createUserAccountScene=new Scene(createUserAccountVbox,800,800);
         createUserAccountScene.getStylesheets().add("file:library.css");
         window.setScene(createUserAccountScene);
+        window.setMaximized(true);
         window.show();
 
         createButton.setOnAction(e->{
