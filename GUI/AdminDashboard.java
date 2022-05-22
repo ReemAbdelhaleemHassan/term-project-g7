@@ -39,7 +39,6 @@ public class AdminDashboard {
         Scene adminDashboardScene =new Scene(adminDashboardVbox,800,600);
         adminDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(adminDashboardScene);
-        window.setMaximized(true);
         window.show();
         //........................................//
         addLibrarianButton.setOnAction(e->{

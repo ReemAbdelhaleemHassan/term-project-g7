@@ -8,8 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
+    Duration duration1=Duration.millis(1000);
+    Duration duration2=Duration.millis(1250);
+    Animation animation=new Animation();
 
     @Override
     public void start(Stage window) throws Exception{
@@ -40,9 +44,12 @@ public class Main extends Application {
         });
 
         //........................................................//
+        animation.parallelTransition(startButton,duration1);
+        animation.parallelTransition(exitButton,duration2);
+
+
         window.setScene(introScene);
         window.setTitle("Library Management System");
-        window.setMaximized(true);
         window.show();
         //........................................................//
 

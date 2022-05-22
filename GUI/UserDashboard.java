@@ -43,7 +43,6 @@ public class UserDashboard {
         Scene userDashboardScene=new Scene(userDashboardVbox,800,600);
         userDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(userDashboardScene);
-        window.setMaximized(true);
         window.show();
         //..................................................//
         viewAvailableBooksButton.setOnAction(e->{

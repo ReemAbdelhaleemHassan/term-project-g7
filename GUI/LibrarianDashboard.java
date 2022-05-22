@@ -40,7 +40,6 @@ public class LibrarianDashboard {
         Scene librarianDashboardScene =new Scene(librarianDashboardVbox,800,600);
         librarianDashboardScene.getStylesheets().add("file:library.css");
         window.setScene(librarianDashboardScene);
-        window.setMaximized(true);
         window.show();
 
         //...................................................//

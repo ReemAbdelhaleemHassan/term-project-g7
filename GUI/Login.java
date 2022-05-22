@@ -73,7 +73,6 @@ public class Login {
         Scene userLoginScene =new Scene(userVbox,800,600);
         userLoginScene.getStylesheets().add("file:library.css");
         window.setScene(userLoginScene);
-        window.setMaximized(true);
         window.show();
 
         //........................................................//

@@ -80,7 +80,6 @@ public class Book{
         Scene addBookScene=new Scene(newBookVbox,800,600);
         addBookScene.getStylesheets().add("file:library.css");
         window.setScene(addBookScene);
-        window.setMaximized(true);
         window.show();
 
         addBookButton.setOnAction(e->{

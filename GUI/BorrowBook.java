@@ -85,7 +85,6 @@ public class BorrowBook {
         Scene registerBorrowScene=new Scene(registerBorrowVbox,800,600);
         registerBorrowScene.getStylesheets().add("file:library.css");
         window.setScene(registerBorrowScene);
-        window.setMaximized(true);
         window.show();
 
         RegisterBorrow registerBorrow = new RegisterBorrow();
